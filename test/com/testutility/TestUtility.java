@@ -1,11 +1,12 @@
-package testutility;
+package com.testutility;
 
 import com.calculator.solver.Lexeme;
 import com.calculator.solver.LexemeParsing;
+import com.calculator.solver.Solver;
 import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
+import java.lang.Math;
 
 public class TestUtility {
 
@@ -14,6 +15,21 @@ public class TestUtility {
         if (!expected.equals(actual)) {
             String message = String.format("""
                     lexemes extracted incorrectly
+                    Expression :\"%s\"
+                    Expected   :%s
+                    Actual     :%s\
+                    """, expression, expected, actual);
+            throw new AssertionError(message);
+        }
+    }
+
+    public static void assertEvaluateExpression(double expected, String expression) {
+        double actual = Solver.evaluateExpression(expression);
+        boolean correctResult = Math.abs(expected - actual) < 0.001;
+
+        if (!correctResult) {
+            String message = String.format("""
+                    expression evaluated incorrectly
                     Expression :\"%s\"
                     Expected   :%s
                     Actual     :%s\
@@ -42,5 +58,15 @@ public class TestUtility {
                 new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL)
         );
         assertGetLexemes(expectedLexemes, expression);
+    }
+
+    @Test
+    public void assertEvaluateExpression_no_unnecessary_fail() {
+        assertEvaluateExpression(10, "10");
+    }
+
+    @Test(expected = AssertionError.class)
+    public void assertEvaluateExpression_fails_on_unexpected_output() {
+        assertEvaluateExpression(5, "10");
     }
 }

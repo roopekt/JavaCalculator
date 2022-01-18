@@ -26,7 +26,7 @@ public class Lexeme {
     }
 
     public static boolean isEmpty(Lexeme lexeme) {
-        return lexeme == null || lexeme.textValue == null || lexeme.textValue == "";
+        return lexeme == null || lexeme.textValue == null || lexeme.textValue.equals("");
     }
 
     @Override

@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static testutility.TestUtility.assertGetLexemes;
+import static com.testutility.TestUtility.assertGetLexemes;
 
 public class LexemeParsingGeneralTest {
 
