@@ -7,7 +7,7 @@ import java.util.List;
 
 import static com.testutility.TestUtility.assertGetLexemes;
 
-public class LexemeParsingGeneralTest {
+public class GetLexemesTest {
 
     @Test
     public void lexemes_are_extracted_correctly(){
