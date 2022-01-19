@@ -1,5 +1,7 @@
 package com.calculator.solver;
 
+import java.util.Objects;
+
 public class Lexeme {
 
     public enum LexemeType {
@@ -10,6 +12,8 @@ public class Lexeme {
 
     public String textValue;
     public LexemeType type;
+    private double value;
+    private boolean isValueSet = false;
 
     public Lexeme(String textValue, LexemeType type) {
         this.textValue = textValue;
@@ -23,6 +27,21 @@ public class Lexeme {
     public Lexeme(LexemeType type){
         this.textValue = "";
         this.type = type;
+    }
+
+    public void setValue(double newValue) {
+        value = newValue;
+        isValueSet = true;
+    }
+
+    public double getValue() {
+        if (!this.hasValue())
+            throw new IllegalAccessError();
+        return value;
+    }
+
+    public boolean hasValue() {
+        return isValueSet;
     }
 
     public static boolean isEmpty(Lexeme lexeme) {
@@ -46,9 +65,7 @@ public class Lexeme {
             return false;
 
         Lexeme otherAsLexeme = (Lexeme)other;
-        boolean isTextValueEqual = this.textValue == null ?
-                otherAsLexeme.textValue == null :
-                this.textValue.equals(otherAsLexeme.textValue);
-        return isTextValueEqual && (this.type == otherAsLexeme.type);
+        return Objects.equals(this.textValue, otherAsLexeme.textValue) &&
+                (this.type == otherAsLexeme.type);
     }
 }
