@@ -15,7 +15,7 @@ public class TestUtility {
         if (!expected.equals(actual)) {
             String message = String.format("""
                     lexemes extracted incorrectly
-                    Expression :\"%s\"
+                    Expression :"%s"
                     Expected   :%s
                     Actual     :%s\
                     """, expression, expected, actual);
@@ -30,7 +30,7 @@ public class TestUtility {
         if (!correctResult) {
             String message = String.format("""
                     expression evaluated incorrectly
-                    Expression :\"%s\"
+                    Expression :"%s"
                     Expected   :%s
                     Actual     :%s\
                     """, expression, expected, actual);

@@ -45,10 +45,9 @@ public class Lexeme {
     @Override
     public boolean equals(Object other) {
 
-        if (!(other instanceof Lexeme))
+        if (!(other instanceof Lexeme otherAsLexeme))
             return false;
 
-        Lexeme otherAsLexeme = (Lexeme)other;
         return Objects.equals(this.textValue, otherAsLexeme.textValue) &&
                 (this.type == otherAsLexeme.type);
     }
