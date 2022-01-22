@@ -12,8 +12,7 @@ public class Lexeme {
 
     public String textValue;
     public LexemeType type;
-    private double value;
-    private boolean isValueSet = false;
+    public NumValue value;
 
     public Lexeme(String textValue, LexemeType type) {
         this.textValue = textValue;
@@ -27,21 +26,6 @@ public class Lexeme {
     public Lexeme(LexemeType type){
         this.textValue = "";
         this.type = type;
-    }
-
-    public void setValue(double newValue) {
-        value = newValue;
-        isValueSet = true;
-    }
-
-    public double getValue() {
-        if (!this.hasValue())
-            throw new IllegalAccessError();
-        return value;
-    }
-
-    public boolean hasValue() {
-        return isValueSet;
     }
 
     public static boolean isEmpty(Lexeme lexeme) {

@@ -1,12 +1,13 @@
 package com.calculator.solver;
 
 public class Solver {
-    public static double evaluateExpression(String expression) {
+    public static NumValue evaluateExpression(String expression) {
         return getValueOfNumberLiteral(expression);
     }
 
-    public static double getValueOfNumberLiteral(String numberLiteral) {
+    public static NumValue getValueOfNumberLiteral(String numberLiteral) {
         numberLiteral = numberLiteral.replace(" ", "");
-        return Double.parseDouble(numberLiteral);
+        double value = Double.parseDouble(numberLiteral);
+        return new NumValue(value);
     }
 }

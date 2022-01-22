@@ -124,41 +124,8 @@ public class LexemeTest {
     }
 
     @Test
-    public void new_lexeme_has_no_value() {
-        var lexeme1 = new Lexeme("abc");
-        assertFalse(lexeme1.hasValue());
-
-        var lexeme2 = new Lexeme("abc", Lexeme.LexemeType.FUNCTION);
-        assertFalse(lexeme2.hasValue());
-    }
-
-    @Test
-    public void lexeme_has_value_if_it_is_set() {
-        var lexeme = new Lexeme("");
-        lexeme.setValue(123);
-        assertTrue(lexeme.hasValue());
-    }
-
-    @Test
-    public void lexeme_remembers_set_value() {
-        var lexeme = new Lexeme("");
-        lexeme.setValue(123);
-        assertEquals(123, lexeme.getValue(), 0.001);
-    }
-
-    @Test(expected = IllegalAccessError.class)
-    public void cannot_read_value_not_set() {
-        var lexeme = new Lexeme("");
-        lexeme.getValue();
-    }
-
-    @Test
-    public void wont_forget_set_value_or_that_one_was_set() {
-        var lexeme = new Lexeme("");
-        lexeme.setValue(123);
-        assertTrue(lexeme.hasValue());
-        assertEquals(123, lexeme.getValue(), 0.001);
-        assertTrue(lexeme.hasValue());
-        assertEquals(123, lexeme.getValue(), 0.001);
+    public void new_lexeme_has_value_null() {
+        var lexeme = new Lexeme("abc");
+        assertNull(lexeme.value);
     }
 }

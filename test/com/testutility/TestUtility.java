@@ -24,7 +24,7 @@ public class TestUtility {
     }
 
     public static void assertEvaluateExpression(double expected, String expression) {
-        double actual = Solver.evaluateExpression(expression);
+        double actual = Solver.evaluateExpression(expression).value;
         boolean correctResult = Math.abs(expected - actual) < 0.001;
 
         if (!correctResult) {
