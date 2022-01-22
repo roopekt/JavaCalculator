@@ -1,7 +1,10 @@
 package com.calculator.solver;
 
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@ToString
+@EqualsAndHashCode
 public class Lexeme {
 
     public enum LexemeType {
@@ -30,25 +33,5 @@ public class Lexeme {
 
     public static boolean isEmpty(Lexeme lexeme) {
         return lexeme == null || lexeme.textValue == null || lexeme.textValue.equals("");
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Lexeme(\"%s\", %s)", textValue, type);
-    }
-
-    @Override
-    public int hashCode(){
-        return textValue.hashCode() ^ type.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-
-        if (!(other instanceof Lexeme otherAsLexeme))
-            return false;
-
-        return Objects.equals(this.textValue, otherAsLexeme.textValue) &&
-                (this.type == otherAsLexeme.type);
     }
 }
