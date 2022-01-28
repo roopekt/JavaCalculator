@@ -6,9 +6,13 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class NumValue {
-    public double value;
+    private double doubleValue;
+
+    public double getDouble() {
+        return doubleValue;
+    }
 
     public NumValue(double value) {
-        this.value = value;
+        this.doubleValue = value;
     }
 }

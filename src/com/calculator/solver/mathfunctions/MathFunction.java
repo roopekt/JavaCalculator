@@ -29,7 +29,7 @@ public class MathFunction {
 
         return numValues.stream()
                 .filter(Objects::nonNull)
-                .mapToDouble(numValue -> numValue.value)
+                .mapToDouble(numValue -> numValue.getDouble())
                 .toArray();
     }
 
