@@ -1,6 +1,7 @@
 package com.calculator.solver.exceptions;
 
 import com.calculator.solver.mathfunctions.SyntaxDesc;
+import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
@@ -9,14 +10,14 @@ public final class WrongArgumentSignatureException extends SyntaxException {
     public final SyntaxDesc expectedSignature;
     public final SyntaxDesc actualSignature;
 
-    public WrongArgumentSignatureException(SyntaxDesc expectedSignature, SyntaxDesc actualSignature) {
+    public WrongArgumentSignatureException(@NonNull SyntaxDesc expectedSignature, @NonNull SyntaxDesc actualSignature) {
         this.expectedSignature = expectedSignature;
         this.actualSignature = actualSignature;
 
-        if (expectedSignature == actualSignature)
+        if (expectedSignature.equals(actualSignature))
             throw new IllegalArgumentException("WrongArgumentSignatureException.constructor: expectedSignature must not equal actualSignature");
 
-        if (expectedSignature.functionSymbol != actualSignature.functionSymbol)
+        if (!expectedSignature.functionSymbol.equals(actualSignature.functionSymbol))
             throw new IllegalArgumentException("WrongArgumentSignatureException.constructor: expectedSignature and actualSignature must have the same function symbol");
     }
 

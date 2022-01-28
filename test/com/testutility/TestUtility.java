@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.lang.Math;
 
+import static org.junit.Assert.assertEquals;
+
 public class TestUtility {
 
     public static void assertGetLexemes(List<Lexeme> expected, String expression) {
@@ -36,6 +38,10 @@ public class TestUtility {
                     """, expression, expected, actual);
             throw new AssertionError(message);
         }
+    }
+
+    public static void assertDoublesEqual(double expected, double actual) {
+        assertEquals(expected, actual, 0.001);
     }
 
     @Test
@@ -68,5 +74,15 @@ public class TestUtility {
     @Test(expected = AssertionError.class)
     public void assertEvaluateExpression_fails_on_unexpected_output() {
         assertEvaluateExpression(5, "10");
+    }
+
+    @Test
+    public void _2_is_2() {
+        assertDoublesEqual(2, 2);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void _2_is_not_3() {
+        assertDoublesEqual(2, 3);
     }
 }

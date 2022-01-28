@@ -19,7 +19,7 @@ public class WrongArgumentSignatureExceptionTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void constructing_with_equal_expected_and_actual_argument_signature_throws_an_error() {
-        new WrongArgumentSignatureException(someSignatureA, someSignatureA);
+        new WrongArgumentSignatureException(someSignatureA, new SyntaxDesc(someSignatureA));
     }
 
     @Test(expected = IllegalArgumentException.class)
