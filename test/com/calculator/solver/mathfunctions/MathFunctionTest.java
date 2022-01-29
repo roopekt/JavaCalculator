@@ -1,7 +1,8 @@
 package com.calculator.solver.mathfunctions;
 
 import com.calculator.solver.NumValue;
-import com.calculator.solver.exceptions.WrongArgumentSignatureException;
+import com.calculator.solver.exceptions.MathException;
+import com.calculator.solver.exceptions.syntax.WrongArgumentSignatureException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -22,30 +23,30 @@ public class MathFunctionTest {
     );
 
     @Test
-    public void two_param_function_is_evaluated_correctly_with_doubles() throws WrongArgumentSignatureException {
+    public void two_param_function_is_evaluated_correctly_with_doubles() throws WrongArgumentSignatureException, MathException {
         var actual = addFunc.evaluate(new NumValue(3), new NumValue(2));
         assertEquals(new NumValue(5), actual);
     }
 
     @Test
-    public void left_param_function_is_evaluated_correctly_with_doubles() throws WrongArgumentSignatureException {
+    public void left_param_function_is_evaluated_correctly_with_doubles() throws WrongArgumentSignatureException, MathException {
         var actual = incrementFunc.evaluate(new NumValue(2), null);
         assertEquals(new NumValue(3), actual);
     }
 
     @Test
-    public void right_param_function_is_evaluated_correctly_with_doubles() throws WrongArgumentSignatureException {
+    public void right_param_function_is_evaluated_correctly_with_doubles() throws WrongArgumentSignatureException, MathException {
         var actual = negateFunc.evaluate(null, new NumValue(2));
         assertEquals(new NumValue(-2), actual);
     }
 
     @Test(expected = WrongArgumentSignatureException.class)
-    public void error_is_thrown_when_evaluate_called_with_missing_arguments() throws WrongArgumentSignatureException {
+    public void error_is_thrown_when_evaluate_called_with_missing_arguments() throws WrongArgumentSignatureException, MathException {
         addFunc.evaluate(new NumValue(1), null);
     }
 
     @Test(expected = WrongArgumentSignatureException.class)
-    public void error_is_thrown_when_evaluate_called_with_unnecessary_arguments() throws WrongArgumentSignatureException {
+    public void error_is_thrown_when_evaluate_called_with_unnecessary_arguments() throws WrongArgumentSignatureException, MathException {
         negateFunc.evaluate(new NumValue(1), new NumValue(2));
     }
 }

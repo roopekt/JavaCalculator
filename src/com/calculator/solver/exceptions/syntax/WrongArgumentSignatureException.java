@@ -1,5 +1,6 @@
-package com.calculator.solver.exceptions;
+package com.calculator.solver.exceptions.syntax;
 
+import com.calculator.solver.exceptions.SyntaxException;
 import com.calculator.solver.mathfunctions.SyntaxDesc;
 import lombok.NonNull;
 import lombok.ToString;
@@ -50,7 +51,7 @@ public final class WrongArgumentSignatureException extends SyntaxException {
             return SpecificErrorType.MISSING_RIGHT_ARG;
         else if (!expectedSignature.rightArgPresent && actualSignature.rightArgPresent)
             return SpecificErrorType.UNEXPECTED_RIGHT_ARG;
-        else if (expectedSignature.functionSymbol != actualSignature.functionSymbol)
+        else if (expectedSignature.functionSymbol.equals(actualSignature.functionSymbol))
             return SpecificErrorType.WRONG_FUNCTION_SYMBOL;
         else
             throw new RuntimeException("WrongArgumentSignatureException.getSpecificErrorType: expectedSignature must not match actualSignature");

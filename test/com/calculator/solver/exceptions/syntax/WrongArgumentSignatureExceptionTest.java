@@ -1,5 +1,6 @@
-package com.calculator.solver.exceptions;
+package com.calculator.solver.exceptions.syntax;
 
+import com.calculator.solver.exceptions.syntax.WrongArgumentSignatureException;
 import com.calculator.solver.mathfunctions.SyntaxDesc;
 import org.junit.Before;
 import org.junit.Test;

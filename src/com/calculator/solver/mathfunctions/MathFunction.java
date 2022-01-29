@@ -1,7 +1,8 @@
 package com.calculator.solver.mathfunctions;
 
 import com.calculator.solver.NumValue;
-import com.calculator.solver.exceptions.WrongArgumentSignatureException;
+import com.calculator.solver.exceptions.MathException;
+import com.calculator.solver.exceptions.syntax.WrongArgumentSignatureException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,15 +10,15 @@ import java.util.Objects;
 
 public class MathFunction {
 
-    private SyntaxDesc syntaxDesc;
-    private MathFunctionDouble mathFunctionDouble;
+    public final SyntaxDesc syntaxDesc;
+    private final MathFunctionDouble mathFunctionDouble;
 
     public MathFunction(SyntaxDesc syntaxDescriptor, MathFunctionDouble mathFunctionDouble) {
         this.syntaxDesc = syntaxDescriptor;
         this.mathFunctionDouble = mathFunctionDouble;
     }
 
-    public NumValue evaluate(NumValue leftArg, NumValue rightArg) throws WrongArgumentSignatureException {
+    public NumValue evaluate(NumValue leftArg, NumValue rightArg) throws WrongArgumentSignatureException, MathException {
         throwErrorIfIncorrectSignature(leftArg, rightArg);
 
         double[] doubleArgs = getDoubleArgumentArray(leftArg, rightArg);
@@ -29,7 +30,7 @@ public class MathFunction {
 
         return numValues.stream()
                 .filter(Objects::nonNull)
-                .mapToDouble(numValue -> numValue.getDouble())
+                .mapToDouble(NumValue::getDouble)
                 .toArray();
     }
 
