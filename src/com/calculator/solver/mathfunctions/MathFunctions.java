@@ -1,5 +1,6 @@
 package com.calculator.solver.mathfunctions;
 
+import com.calculator.solver.exceptions.math.FailedExponentiationException;
 import com.calculator.solver.exceptions.math.ZeroDivisionException;
 
 import java.util.Arrays;
@@ -23,6 +24,10 @@ public class MathFunctions {
                     args -> -args[0]
             ),
             new MathFunction(
+                    new SyntaxDesc(true, "^", true),
+                    args -> powDoublesWithExceptions(args[0], args[1])
+            ),
+            new MathFunction(
                     new SyntaxDesc(true, "*", true),
                     args -> args[0] * args[1]
             ),
@@ -39,6 +44,8 @@ public class MathFunctions {
                     args -> args[0] - args[1]
             )
     ));
+
+    private static final double almostZero = 1e-300;
 
     public static MathFunction getMathFunction(SyntaxDesc descriptor) {
         return getMathFunctionsInOrderOfExpectedEvaluation()
@@ -63,11 +70,29 @@ public class MathFunctions {
 
     private static double divideDoublesWithExceptions(double numerator, double denominator) throws ZeroDivisionException {
 
-        double tolerance = 1e-300;
-        if (-tolerance <= denominator && denominator <= tolerance) {
+        if (isAlmostZero(denominator))
             throw new ZeroDivisionException(numerator, denominator);
-        }
 
         return numerator / denominator;
+    }
+
+    private static double powDoublesWithExceptions(double base, double exponent) throws ZeroDivisionException, FailedExponentiationException {
+
+        if (isAlmostZero(base) && exponent < 0)
+            throw new ZeroDivisionException(1, Math.pow(base, -exponent));
+
+        if (isAlmostZero(base) && isAlmostZero(exponent))
+            throw new FailedExponentiationException(base, exponent);
+
+        double result = Math.pow(base, exponent);
+
+        if (Double.isNaN(result))
+            throw new FailedExponentiationException(base, exponent);
+
+        return result;
+    }
+
+    private static boolean isAlmostZero(double x) {
+        return -almostZero <= x && x <= almostZero;
     }
 }

@@ -19,6 +19,7 @@ public class MathFunctionsTest {
     //descriptors to find the correct MathFunction
     public static final SyntaxDesc plusDesc = new SyntaxDesc(false, "+", true);//one may write just "+2"
     public static final SyntaxDesc negateDesc = new SyntaxDesc(false, "-", true);
+    public static final SyntaxDesc powerDesc = new SyntaxDesc(true, "^", true);
     public static final SyntaxDesc multiplyDesc = new SyntaxDesc(true, "*", true);
     public static final SyntaxDesc divideDesc = new SyntaxDesc(true, "/", true);
     public static final SyntaxDesc addDesc = new SyntaxDesc(true, "+", true);

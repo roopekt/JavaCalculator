@@ -9,15 +9,19 @@ import static org.junit.Assert.assertTrue;
 public class MathFunctionsOrderTest {
 
     @Test
-    public void plus_comes_before_multiplication_and_division() {
-        assertEvaluationOrder(MathFunctionsTest.plusDesc, MathFunctionsTest.multiplyDesc);
-        assertEvaluationOrder(MathFunctionsTest.plusDesc, MathFunctionsTest.divideDesc);
+    public void plus_comes_before_exponentiation() {
+        assertEvaluationOrder(MathFunctionsTest.plusDesc, MathFunctionsTest.powerDesc);
     }
 
     @Test
-    public void negate_comes_before_multiplication_and_division() {
-        assertEvaluationOrder(MathFunctionsTest.negateDesc, MathFunctionsTest.multiplyDesc);
-        assertEvaluationOrder(MathFunctionsTest.negateDesc, MathFunctionsTest.divideDesc);
+    public void negate_comes_before_exponentiation() {
+        assertEvaluationOrder(MathFunctionsTest.negateDesc, MathFunctionsTest.powerDesc);
+    }
+
+    @Test
+    public void exponentiation_comes_before_multiplication_and_division() {
+        assertEvaluationOrder(MathFunctionsTest.powerDesc, MathFunctionsTest.multiplyDesc);
+        assertEvaluationOrder(MathFunctionsTest.powerDesc, MathFunctionsTest.divideDesc);
     }
 
     @Test
