@@ -6,6 +6,11 @@ import com.calculator.solver.exceptions.MathException;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 
+/**
+ * Thrown when a number cannot be raised to another.
+ * A ZeroDivisionException may be thrown instead if the exponent is negative and base zero.
+ * @see ZeroDivisionException
+*/
 @ToString
 @AllArgsConstructor
 public class FailedExponentiationException extends MathException {

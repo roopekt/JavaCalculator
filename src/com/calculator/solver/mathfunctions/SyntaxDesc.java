@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+/**
+ * Describes the syntax for a MathFunction: what symbol needs to be used and what arguments are expected.
+ * @see MathFunction
+ */
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString

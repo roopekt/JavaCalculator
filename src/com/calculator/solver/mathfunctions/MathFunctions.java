@@ -8,6 +8,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
+/**
+ * A static container for all MathFunctions.
+ * @see MathFunction
+ */
 public class MathFunctions {
 
     public static List<MathFunction> getMathFunctionsInOrderOfExpectedEvaluation() {

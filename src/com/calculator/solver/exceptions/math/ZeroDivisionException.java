@@ -5,6 +5,11 @@ import com.calculator.solver.exceptions.MathException;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 
+/**
+ * Thrown when a number is divided by 0.
+ * Exponentiation may also throw this exception.
+ * @see FailedExponentiationException
+ */
 @ToString
 @AllArgsConstructor
 public class ZeroDivisionException extends MathException {

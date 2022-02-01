@@ -5,6 +5,11 @@ import java.util.ArrayList;
 
 import static java.lang.Character.isDigit;
 
+/**
+ * Static methods for splitting an expression into lexemes, mainly getLexemes.
+ * @see Lexeme
+ * @see #getLexemes
+ */
 public class LexemeParsing {
 
     public static List<Lexeme> getLexemes(String expression) {

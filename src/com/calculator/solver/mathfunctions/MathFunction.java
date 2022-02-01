@@ -7,6 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * All math operations like addition and multiplication are an instance of this class.
+ * Holds data about syntax, and functionality to evaluate with any type of supported numbers.
+ */
 public class MathFunction {
 
     public final SyntaxDesc syntaxDesc;

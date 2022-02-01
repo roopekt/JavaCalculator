@@ -3,6 +3,9 @@ package com.calculator.solver;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+/**
+ * A wrapper for any kind of numerical value.
+ */
 @ToString
 @EqualsAndHashCode
 public class NumValue {

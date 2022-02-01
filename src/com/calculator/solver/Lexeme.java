@@ -3,6 +3,10 @@ package com.calculator.solver;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+/**
+ * A single lexeme.
+ * Holds data like the text it represents, type (e.g. number literal or function) and numerical value if it has been calculated.
+ */
 @ToString
 @EqualsAndHashCode
 public class Lexeme {
