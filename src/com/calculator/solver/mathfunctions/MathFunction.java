@@ -2,7 +2,6 @@ package com.calculator.solver.mathfunctions;
 
 import com.calculator.solver.NumValue;
 import com.calculator.solver.exceptions.MathException;
-import com.calculator.solver.exceptions.syntax.WrongArgumentSignatureException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +17,7 @@ public class MathFunction {
         this.mathFunctionDouble = mathFunctionDouble;
     }
 
-    public NumValue evaluate(NumValue leftArg, NumValue rightArg) throws WrongArgumentSignatureException, MathException {
+    public NumValue evaluate(NumValue leftArg, NumValue rightArg) throws MathException {
         throwErrorIfIncorrectSignature(leftArg, rightArg);
 
         double[] doubleArgs = getDoubleArgumentArray(leftArg, rightArg);
@@ -34,12 +33,12 @@ public class MathFunction {
                 .toArray();
     }
 
-    private void throwErrorIfIncorrectSignature(NumValue leftArg, NumValue rightArg) throws WrongArgumentSignatureException {
+    private void throwErrorIfIncorrectSignature(NumValue leftArg, NumValue rightArg) {
         SyntaxDesc expectedSignature = this.syntaxDesc;
         SyntaxDesc actualSignature = getArgumentSignature(leftArg, rightArg);
 
         if (!expectedSignature.equals(actualSignature))
-            throw new WrongArgumentSignatureException(expectedSignature, actualSignature);
+            throw new RuntimeException("Incorrect function signature");
     }
 
     private SyntaxDesc getArgumentSignature(NumValue leftArg, NumValue rightArg) {

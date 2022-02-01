@@ -2,8 +2,6 @@ package com.calculator.solver.mathfunctions.mathfunctionstest;
 
 import com.calculator.solver.NumValue;
 import com.calculator.solver.exceptions.MathException;
-import com.calculator.solver.exceptions.math.ZeroDivisionException;
-import com.calculator.solver.exceptions.syntax.WrongArgumentSignatureException;
 import com.calculator.solver.mathfunctions.MathFunction;
 import com.calculator.solver.mathfunctions.MathFunctions;
 import com.calculator.solver.mathfunctions.SyntaxDesc;
@@ -46,14 +44,7 @@ public class MathFunctionsTest {
             throw new RuntimeException(message);
         }
 
-        NumValue actual;
-        try {
-            actual = function.evaluate(leftArg, rightArg);
-        }
-        catch (WrongArgumentSignatureException e) {
-            throw new RuntimeException("incorrect argument signature");
-        }
-
+        NumValue actual = function.evaluate(leftArg, rightArg);
         assertEquals(expectedResult, actual);
     }
 }
