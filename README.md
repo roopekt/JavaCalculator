@@ -2,7 +2,7 @@
 
 Right now this just prints hello world, but in the future this will be a calculator. This is my first attempt at test driven development.
 
-## Intallation 
+## Installation 
 
 1. Install IntelliJ IDEA  
   https://www.jetbrains.com/idea/download
