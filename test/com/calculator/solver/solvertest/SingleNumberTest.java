@@ -45,6 +45,6 @@ public class SingleNumberTest {
 
     @Test
     public void number_literal_with_a_comma_cannot_be_evaluated() {
-        assertEvaluateExpressionThrowsAndError(IncorrectNumberLiteralException.class, "1,2");
+        assertEvaluateExpressionThrowsAndError(Throwable.class, "1,2");
     }
 }

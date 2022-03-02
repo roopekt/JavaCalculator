@@ -34,4 +34,10 @@ public class Lexeme {
         this.textValue = "";
         this.type = type;
     }
+
+    public Lexeme(NumValue value) {
+        textValue = "";
+        type = LexemeType.NUMBERLITERAL;
+        this.value = value;
+    }
 }

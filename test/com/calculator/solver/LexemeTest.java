@@ -104,4 +104,23 @@ public class LexemeTest {
         var lexeme = new Lexeme("abc");
         assertNull(lexeme.value);
     }
+
+    @Test
+    public void lexeme_constructed_from_NumValue_has_type_NUMBERLITERAL() {
+        var lexeme = new Lexeme(new NumValue(123));
+        assertEquals(Lexeme.LexemeType.NUMBERLITERAL, lexeme.type);
+    }
+
+    @Test
+    public void lexeme_constructed_from_NumValue_has_empty_string_as_textValue() {
+        var lexeme = new Lexeme(new NumValue(123));
+        assertEquals("", lexeme.textValue);
+    }
+
+    @Test
+    public void lexeme_constructed_from_NumValue_remembers_given_NumValue() {
+        var numValue = new NumValue(123);
+        var lexeme = new Lexeme(numValue);
+        assertSame(numValue, lexeme.value);
+    }
 }

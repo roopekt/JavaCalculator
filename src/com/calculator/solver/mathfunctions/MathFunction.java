@@ -39,17 +39,9 @@ public class MathFunction {
 
     private void throwErrorIfIncorrectSignature(NumValue leftArg, NumValue rightArg) {
         SyntaxDesc expectedSignature = this.syntaxDesc;
-        SyntaxDesc actualSignature = getArgumentSignature(leftArg, rightArg);
+        SyntaxDesc actualSignature = new SyntaxDesc(leftArg, this.syntaxDesc.functionSymbol, rightArg);
 
         if (!expectedSignature.equals(actualSignature))
             throw new RuntimeException("Incorrect function signature");
-    }
-
-    private SyntaxDesc getArgumentSignature(NumValue leftArg, NumValue rightArg) {
-        return new SyntaxDesc(
-                leftArg != null,
-                this.syntaxDesc.functionSymbol,
-                rightArg != null
-        );
     }
 }

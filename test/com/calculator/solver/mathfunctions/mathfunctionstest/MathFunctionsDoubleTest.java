@@ -9,7 +9,7 @@ import org.junit.Test;
 public class MathFunctionsDoubleTest {
 
     @Test
-    public void _2_plus_3_is_5_with_doubles() throws MathException {
+    public void _2_plus_3_is_5() throws MathException {
         MathFunctionsTest.assertFindAndEvaluateFunction(
                 MathFunctionsTest.addDesc,
                 new NumValue(5),
@@ -19,7 +19,7 @@ public class MathFunctionsDoubleTest {
     }
 
     @Test
-    public void _0_plus_0_is_0_with_doubles() throws MathException {
+    public void _0_plus_0_is_0() throws MathException {
         MathFunctionsTest.assertFindAndEvaluateFunction(
                 MathFunctionsTest.addDesc,
                 new NumValue(0),

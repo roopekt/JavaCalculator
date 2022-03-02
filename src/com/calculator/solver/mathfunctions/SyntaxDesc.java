@@ -1,5 +1,6 @@
 package com.calculator.solver.mathfunctions;
 
+import com.calculator.solver.NumValue;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -20,5 +21,11 @@ public class SyntaxDesc {
         leftArgPresent = otherDesc.leftArgPresent;
         functionSymbol = otherDesc.functionSymbol;
         rightArgPresent = otherDesc.rightArgPresent;
+    }
+
+    public SyntaxDesc(NumValue leftArg, String functionSymbol, NumValue rightArg) {
+        leftArgPresent = leftArg != null;
+        this.functionSymbol = functionSymbol;
+        rightArgPresent = rightArg != null;
     }
 }
