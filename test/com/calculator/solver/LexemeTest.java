@@ -100,30 +100,6 @@ public class LexemeTest {
     }
 
     @Test
-    public void null_lexeme_is_empty() {
-        assertTrue(Lexeme.isEmpty(null));
-    }
-
-    @Test
-    public void lexeme_with_empty_textValue_is_empty() {
-        var lexeme = new Lexeme("");
-        assertTrue(Lexeme.isEmpty(lexeme));
-    }
-
-    @Test
-    public void lexeme_with_nonempty_textValue_is_not_empty() {
-        var lexeme = new Lexeme("text");
-        assertFalse(Lexeme.isEmpty(lexeme));
-    }
-
-    @Test
-    public void lexeme_with_textValue_null_is_empty() {
-        var lexeme = new Lexeme("");
-        lexeme.textValue = null;
-        assertTrue(Lexeme.isEmpty(lexeme));
-    }
-
-    @Test
     public void new_lexeme_has_value_null() {
         var lexeme = new Lexeme("abc");
         assertNull(lexeme.value);

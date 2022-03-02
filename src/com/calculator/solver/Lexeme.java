@@ -34,8 +34,4 @@ public class Lexeme {
         this.textValue = "";
         this.type = type;
     }
-
-    public static boolean isEmpty(Lexeme lexeme) {
-        return lexeme == null || lexeme.textValue == null || lexeme.textValue.equals("");
-    }
 }

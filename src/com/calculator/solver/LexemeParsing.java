@@ -26,7 +26,7 @@ public class LexemeParsing {
             if(newCharacter == ' ')
                 continue;
 
-            if (Lexeme.isEmpty(newLexeme)) {
+            if (newLexeme == null) {
                 newLexeme = new Lexeme("", newCharType);
             }
             else if (shouldBeInDifferentLexeme(newCharacter, previousNonSpaceCharType, previousCharWasSpace)) {
@@ -56,7 +56,7 @@ public class LexemeParsing {
     }
 
     private static void addLexemeIfNotEmpty(Lexeme newLexeme, List<Lexeme> lexemeList) {
-        if (!Lexeme.isEmpty(newLexeme))
+        if (newLexeme != null && !newLexeme.textValue.equals(""))
             lexemeList.add(newLexeme);
     }
 
