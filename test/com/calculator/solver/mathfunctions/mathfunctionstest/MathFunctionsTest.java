@@ -36,6 +36,15 @@ public class MathFunctionsTest {
         }
     }
 
+    @Test
+    public void getAnyMathFunctionWithSymbol_test() {
+        assertEquals("+", MathFunctions.getAnyMathFunctionWithSymbol("+").syntaxDesc.functionSymbol);
+
+        assertEquals("-", MathFunctions.getAnyMathFunctionWithSymbol("-").syntaxDesc.functionSymbol);
+
+        assertNull(MathFunctions.getAnyMathFunctionWithSymbol("nnkiunq"));
+    }
+
     public static void assertFindAndEvaluateFunction(SyntaxDesc syntaxDesc, NumValue expectedResult, NumValue leftArg, NumValue rightArg) throws MathException {
         MathFunction function = MathFunctions.getMathFunction(syntaxDesc);
 

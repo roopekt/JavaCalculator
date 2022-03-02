@@ -72,6 +72,14 @@ public class MathFunctions {
         return index;
     }
 
+    public static MathFunction getAnyMathFunctionWithSymbol(String functionSymbol) {
+        return getMathFunctionsInOrderOfExpectedEvaluation()
+                .stream()
+                .filter(mathFunc -> mathFunc.syntaxDesc.functionSymbol.equals(functionSymbol))
+                .findAny()
+                .orElse(null);
+    }
+
     private static double divideDoublesWithExceptions(double numerator, double denominator) throws ZeroDivisionException {
 
         if (isAlmostZero(denominator))

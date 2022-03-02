@@ -2,7 +2,7 @@ package com.calculator.solver;
 
 import com.calculator.solver.exceptions.MathException;
 import com.calculator.solver.exceptions.SyntaxException;
-import com.calculator.solver.exceptions.syntax.IncorrectNumberLiteralException;
+import com.calculator.solver.exceptions.syntax.*;
 import com.calculator.solver.mathfunctions.MathFunction;
 import com.calculator.solver.mathfunctions.MathFunctions;
 import com.calculator.solver.mathfunctions.SyntaxDesc;
@@ -20,14 +20,18 @@ public class ParenthesislessSolver {
     public static NumValue evaluateParethesislessExpression(List<Lexeme> lexemeList) throws MathException, SyntaxException {
         List<Lexeme> unevaluatedList = new ArrayList<>(lexemeList);
 
+        proactiveSyntaxErrorCheck(unevaluatedList);
+
         evaluateNumberLiteralsInLexemeList(lexemeList);
 
         for (MathFunction mathFunction : MathFunctions.getMathFunctionsInOrderOfExpectedEvaluation()) {
             evaluateAllInstancesOfFunctionInPlace(mathFunction, lexemeList);
         }
 
-        if (lexemeList.size() != 1)
-            onCantEvaluate(unevaluatedList, lexemeList);
+        if (lexemeList.size() != 1 || lexemeList.get(0).type != Lexeme.LexemeType.NUMBERLITERAL) {
+            onFailedToEvaluate(unevaluatedList);
+            return null;
+        }
 
         return lexemeList.get(0).value;
     }
@@ -108,7 +112,58 @@ public class ParenthesislessSolver {
         return new SyntaxDesc(leftArg, functionLexeme.textValue, rightArg).equals(expectedSyntax);
     }
 
-    private static void onCantEvaluate(List<Lexeme> unevaluatedLexemeList, List<Lexeme> partiallyEvaluatedLexemeList) throws SyntaxException {
-        throw new RuntimeException("Failed to evaluate lexeme list:\n%s".formatted(unevaluatedLexemeList));
+    private static void proactiveSyntaxErrorCheck(List<Lexeme> unevaluatedLexemeList) throws SyntaxException {
+        if (unevaluatedLexemeList.size() == 0)
+            throw new EmptyExpressionException();
+
+        if (doesListHaveSuccessivePairOfLexemesWithType(unevaluatedLexemeList, Lexeme.LexemeType.NUMBERLITERAL))
+            throw new AdjacentNumericalsException();
+
+        if (doesListHaveSuccessivePairOfLexemesWithType(unevaluatedLexemeList, Lexeme.LexemeType.FUNCTION))
+            throw new AdjacentFunctionsException();
+    }
+
+    private static void onFailedToEvaluate(List<Lexeme> unevaluatedLexemeList) throws SyntaxException {
+        int functionLexemeIndex = getIndexOfAnyFunction(unevaluatedLexemeList);
+        if (functionLexemeIndex >= 0) {
+            NumValue leftArg = getLeftArg(functionLexemeIndex, unevaluatedLexemeList);
+            NumValue rightArg = getRightArg(functionLexemeIndex, unevaluatedLexemeList);
+
+            SyntaxDesc syntaxDesc = new SyntaxDesc(
+                    leftArg,
+                    unevaluatedLexemeList.get(functionLexemeIndex).textValue,
+                    rightArg
+            );
+
+            throw new UnrecognisedFunctionException(syntaxDesc);
+        }
+        else {
+            throw new RuntimeException("ParenthesislessSolver: Failed to evaluate lexeme list:\n%s".formatted(unevaluatedLexemeList));
+        }
+    }
+
+    private static boolean doesListHaveSuccessivePairOfLexemesWithType(List<Lexeme> lexemeList, Lexeme.LexemeType type) {
+        Lexeme previousLexeme = null;
+        for (Lexeme currentLexeme : lexemeList) {
+            if (previousLexeme != null
+                    && previousLexeme.type == type
+                    && currentLexeme.type == type)
+                return true;
+
+            previousLexeme = currentLexeme;
+        }
+
+        return false;
+    }
+
+    private static int getIndexOfAnyFunction(List<Lexeme> lexemeList) {
+        int i = 0;
+        for (Lexeme lexeme : lexemeList) {
+            if (lexeme.type == Lexeme.LexemeType.FUNCTION)
+                return i;
+
+            i++;
+        }
+        return -1;
     }
 }
