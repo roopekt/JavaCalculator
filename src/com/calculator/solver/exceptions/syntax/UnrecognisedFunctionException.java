@@ -20,10 +20,10 @@ public class UnrecognisedFunctionException extends SyntaxException {
             return "Unrecognised function/operator.";
 
         String message = "";
-        if (bestMatch.leftArgPresent && !funcSyntaxDesc.leftArgPresent) message += "Left argument is missing.";
-        if (bestMatch.rightArgPresent && !funcSyntaxDesc.rightArgPresent) message += "Right argument is missing.";
-        if (!bestMatch.leftArgPresent && funcSyntaxDesc.leftArgPresent) message += "Unexpected left argument.";
-        if (!bestMatch.rightArgPresent && funcSyntaxDesc.rightArgPresent) message += "Unexpected right argument.";
+        if (bestMatch.leftArgPresent && !funcSyntaxDesc.leftArgPresent) message += "Left argument is missing. ";
+        if (bestMatch.rightArgPresent && !funcSyntaxDesc.rightArgPresent) message += "Right argument is missing. ";
+        if (!bestMatch.leftArgPresent && funcSyntaxDesc.leftArgPresent) message += "Unexpected left argument. ";
+        if (!bestMatch.rightArgPresent && funcSyntaxDesc.rightArgPresent) message += "Unexpected right argument. ";
 
         return message;
     }
