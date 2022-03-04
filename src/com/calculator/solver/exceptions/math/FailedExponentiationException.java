@@ -4,6 +4,7 @@ import com.calculator.solver.NumValue;
 import com.calculator.solver.exceptions.ExceptionUtility;
 import com.calculator.solver.exceptions.MathException;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -13,6 +14,7 @@ import lombok.ToString;
 */
 @ToString
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class FailedExponentiationException extends MathException {
     public final NumValue base;
     public final NumValue exponent;

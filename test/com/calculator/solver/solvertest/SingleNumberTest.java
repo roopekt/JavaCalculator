@@ -1,12 +1,13 @@
 package com.calculator.solver.solvertest;
 
+import com.calculator.solver.Solver;
 import com.calculator.solver.exceptions.UserException;
 import com.calculator.solver.exceptions.syntax.IncorrectNumberLiteralException;
+import com.calculator.solver.exceptions.syntax.UnrecognisedFunctionException;
+import com.calculator.solver.mathfunctions.SyntaxDesc;
 import org.junit.Test;
 import static com.testutility.TestUtility.assertEvaluateExpression;
-
-import static com.testutility.TestUtility.assertEvaluateExpressionThrowsAndError;
-import static org.junit.Assert.*;
+import static com.testutility.TestUtility.assertThrowsErrorWithCorrectData;
 
 public class SingleNumberTest {
 
@@ -31,20 +32,30 @@ public class SingleNumberTest {
 
     @Test
     public void single_dot_cannot_be_evaluated() {
-        assertEvaluateExpressionThrowsAndError(IncorrectNumberLiteralException.class, ".");
+        assertThrowsErrorWithCorrectData(
+                new IncorrectNumberLiteralException("."),
+                () -> Solver.evaluateExpression(".")
+        );
     }
 
     @Test
     public void number_literal_with_multiple_dots_cannot_be_evaluated() {
-        assertEvaluateExpressionThrowsAndError(IncorrectNumberLiteralException.class, "..");
-        assertEvaluateExpressionThrowsAndError(IncorrectNumberLiteralException.class, "1..2");
-        assertEvaluateExpressionThrowsAndError(IncorrectNumberLiteralException.class, "1.2.3");
-        assertEvaluateExpressionThrowsAndError(IncorrectNumberLiteralException.class, "..1");
-        assertEvaluateExpressionThrowsAndError(IncorrectNumberLiteralException.class, "1..");
+        assertThrowsErrorWithCorrectData(
+                new IncorrectNumberLiteralException("1..2"),
+                () -> Solver.evaluateExpression("1..2")
+        );
+
+        assertThrowsErrorWithCorrectData(
+                new IncorrectNumberLiteralException("1.2.3"),
+                () -> Solver.evaluateExpression("1.2.3")
+        );
     }
 
     @Test
     public void number_literal_with_a_comma_cannot_be_evaluated() {
-        assertEvaluateExpressionThrowsAndError(Throwable.class, "1,2");
+        assertThrowsErrorWithCorrectData(
+                new UnrecognisedFunctionException(new SyntaxDesc(true, ",", true)),
+                () -> Solver.evaluateExpression("1,2")
+        );
     }
 }

@@ -3,6 +3,7 @@ package com.calculator.solver.exceptions.math;
 import com.calculator.solver.NumValue;
 import com.calculator.solver.exceptions.MathException;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -12,6 +13,7 @@ import lombok.ToString;
  */
 @ToString
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class ZeroDivisionException extends MathException {
 
     public final NumValue numerator;

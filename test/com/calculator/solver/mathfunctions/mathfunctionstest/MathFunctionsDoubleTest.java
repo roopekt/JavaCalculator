@@ -4,6 +4,7 @@ import com.calculator.solver.NumValue;
 import com.calculator.solver.exceptions.MathException;
 import com.calculator.solver.exceptions.math.FailedExponentiationException;
 import com.calculator.solver.exceptions.math.ZeroDivisionException;
+import com.testutility.TestUtility;
 import org.junit.Test;
 
 public class MathFunctionsDoubleTest {
@@ -68,23 +69,29 @@ public class MathFunctionsDoubleTest {
         );
     }
 
-    @Test(expected = ZeroDivisionException.class)
-    public void _2_divided_by_0_throws_an_error() throws MathException {
-        MathFunctionsTest.assertFindAndEvaluateFunction(
-                MathFunctionsTest.divideDesc,
-                null,
-                new NumValue(2),
-                new NumValue(0)
+    @Test
+    public void _2_divided_by_0_throws_correct_error() {
+        TestUtility.assertThrowsErrorWithCorrectData(
+                new ZeroDivisionException(2, 0),
+                () -> MathFunctionsTest.assertFindAndEvaluateFunction(
+                    MathFunctionsTest.divideDesc,
+                    null,
+                    new NumValue(2),
+                    new NumValue(0)
+            )
         );
     }
 
-    @Test(expected = ZeroDivisionException.class)
-    public void _0_divided_by_0_throws_an_error() throws MathException {
-        MathFunctionsTest.assertFindAndEvaluateFunction(
-                MathFunctionsTest.divideDesc,
-                null,
-                new NumValue(0),
-                new NumValue(0)
+    @Test
+    public void _0_divided_by_0_throws_correct_error() {
+        TestUtility.assertThrowsErrorWithCorrectData(
+                new ZeroDivisionException(0, 0),
+                () -> MathFunctionsTest.assertFindAndEvaluateFunction(
+                        MathFunctionsTest.divideDesc,
+                        null,
+                        new NumValue(0),
+                        new NumValue(0)
+                )
         );
     }
 
@@ -208,33 +215,42 @@ public class MathFunctionsDoubleTest {
         );
     }
 
-    @Test(expected = ZeroDivisionException.class)
-    public void _0_raised_to_minus_1_throws_an_error() throws MathException {
-        MathFunctionsTest.assertFindAndEvaluateFunction(
-                MathFunctionsTest.powerDesc,
-                null,
-                new NumValue(0),
-                new NumValue(-1)
+    @Test
+    public void _0_raised_to_minus_1_throws_correct_error() {
+        TestUtility.assertThrowsErrorWithCorrectData(
+                new ZeroDivisionException(1, 0),
+                () -> MathFunctionsTest.assertFindAndEvaluateFunction(
+                        MathFunctionsTest.powerDesc,
+                        null,
+                        new NumValue(0),
+                        new NumValue(-1)
+                )
         );
     }
 
-    @Test(expected = FailedExponentiationException.class)
-    public void _0_raised_to_0_throws_an_error() throws MathException {
-        MathFunctionsTest.assertFindAndEvaluateFunction(
-                MathFunctionsTest.powerDesc,
-                null,
-                new NumValue(0),
-                new NumValue(0)
+    @Test
+    public void _0_raised_to_0_throws_correct_error() {
+        TestUtility.assertThrowsErrorWithCorrectData(
+                new FailedExponentiationException(0, 0),
+                () -> MathFunctionsTest.assertFindAndEvaluateFunction(
+                    MathFunctionsTest.powerDesc,
+                    null,
+                    new NumValue(0),
+                    new NumValue(0)
+                )
         );
     }
 
-    @Test(expected = FailedExponentiationException.class)
-    public void minus_2_raised_to_half_throws_an_error() throws MathException {
-        MathFunctionsTest.assertFindAndEvaluateFunction(
-                MathFunctionsTest.powerDesc,
-                null,
-                new NumValue(-2),
-                new NumValue(1./2)
+    @Test
+    public void minus_2_raised_to_half_throws_correct_error() {
+        TestUtility.assertThrowsErrorWithCorrectData(
+                new FailedExponentiationException(-2, .5),
+                () -> MathFunctionsTest.assertFindAndEvaluateFunction(
+                        MathFunctionsTest.powerDesc,
+                        null,
+                        new NumValue(-2),
+                        new NumValue(.5)
+                )
         );
     }
 }

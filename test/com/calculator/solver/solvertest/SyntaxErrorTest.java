@@ -5,33 +5,40 @@ import com.calculator.solver.ParenthesislessSolver;
 import com.calculator.solver.Solver;
 import com.calculator.solver.exceptions.MathException;
 import com.calculator.solver.exceptions.SyntaxException;
-import com.calculator.solver.exceptions.syntax.AdjacentFunctionsException;
-import com.calculator.solver.exceptions.syntax.AdjacentNumericalsException;
-import com.calculator.solver.exceptions.syntax.EmptyExpressionException;
-import com.calculator.solver.exceptions.syntax.UnrecognisedFunctionException;
+import com.calculator.solver.exceptions.syntax.*;
+import com.calculator.solver.mathfunctions.SyntaxDesc;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.testutility.TestUtility.assertEvaluateExpressionThrowsAndError;
-import static org.junit.Assert.assertThrows;
+import static com.testutility.TestUtility.assertThrowsErrorWithCorrectData;
 
 public class SyntaxErrorTest {
 
     @Test
-    public void adjacent_functions_throw_an_error() {
-        assertEvaluateExpressionThrowsAndError(AdjacentFunctionsException.class, "* *");
-        assertEvaluateExpressionThrowsAndError(AdjacentFunctionsException.class, "1+ -2");
+    public void adjacent_functions_throw_correct_error() {
+        assertThrowsErrorWithCorrectData(
+                new AdjacentFunctionsException(),
+                () -> Solver.evaluateExpression("* *")
+        );
+
+        assertThrowsErrorWithCorrectData(
+                new AdjacentFunctionsException(),
+                () -> Solver.evaluateExpression("1+ -2")
+        );
     }
 
-    @Test(expected = AdjacentNumericalsException.class)
-    public void adjacent_numericals_throw_an_error() throws MathException, SyntaxException {
+    @Test
+    public void adjacent_numericals_throw_correct_error() {
         List<Lexeme> expression = Arrays.asList(
                 new Lexeme("1", Lexeme.LexemeType.NUMBERLITERAL),
                 new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL)
         );
-        ParenthesislessSolver.evaluateParethesislessExpression(expression);
+        assertThrowsErrorWithCorrectData(
+                new AdjacentNumericalsException(),
+                () -> ParenthesislessSolver.evaluateParethesislessExpression(expression)
+        );
     }
 
     @Test(expected = EmptyExpressionException.class)
@@ -41,13 +48,23 @@ public class SyntaxErrorTest {
     }
 
     @Test
-    public void wrong_function_symbol_throws_an_error() {
-        assertEvaluateExpressionThrowsAndError(UnrecognisedFunctionException.class, "wrongSymbol");
+    public void wrong_function_symbol_throws_correct_error() {
+        assertThrowsErrorWithCorrectData(
+                new UnrecognisedFunctionException(new SyntaxDesc(false, "wrong", false)),
+                () -> Solver.evaluateExpression("wrong")
+        );
     }
 
     @Test
-    public void wrong_function_argument_signature_throws_an_error() {
-        assertEvaluateExpressionThrowsAndError(UnrecognisedFunctionException.class, "1+");
-        assertEvaluateExpressionThrowsAndError(UnrecognisedFunctionException.class, "*123");
+    public void wrong_function_argument_signature_throws_correct_error() {
+        assertThrowsErrorWithCorrectData(
+                new UnrecognisedFunctionException(new SyntaxDesc(true, "+", false)),
+                () -> Solver.evaluateExpression("1+")
+        );
+
+        assertThrowsErrorWithCorrectData(
+                new UnrecognisedFunctionException(new SyntaxDesc(false, "*", true)),
+                () -> Solver.evaluateExpression("*123")
+        );
     }
 }

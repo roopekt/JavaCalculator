@@ -5,10 +5,12 @@ import com.calculator.solver.mathfunctions.MathFunction;
 import com.calculator.solver.mathfunctions.MathFunctions;
 import com.calculator.solver.mathfunctions.SyntaxDesc;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @ToString
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class UnrecognisedFunctionException extends SyntaxException {
 
     public final SyntaxDesc funcSyntaxDesc;
