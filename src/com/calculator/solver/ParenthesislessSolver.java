@@ -18,9 +18,7 @@ import java.util.regex.*;
 public class ParenthesislessSolver {
 
     public static NumValue evaluateParethesislessExpression(List<Lexeme> lexemeList) throws MathException, SyntaxException {
-        List<Lexeme> unevaluatedList = new ArrayList<>(lexemeList);
-
-        proactiveSyntaxErrorCheck(unevaluatedList);
+        proactiveSyntaxErrorCheck(lexemeList);
 
         evaluateNumberLiteralsInLexemeList(lexemeList);
 
@@ -29,7 +27,7 @@ public class ParenthesislessSolver {
         }
 
         if (lexemeList.size() != 1 || lexemeList.get(0).type != Lexeme.LexemeType.NUMBERLITERAL) {
-            onFailedToEvaluate(unevaluatedList);
+            onFailedToEvaluate(lexemeList);
             return null;
         }
 
@@ -123,22 +121,24 @@ public class ParenthesislessSolver {
             throw new AdjacentFunctionsException();
     }
 
-    private static void onFailedToEvaluate(List<Lexeme> unevaluatedLexemeList) throws SyntaxException {
-        int functionLexemeIndex = getIndexOfAnyFunction(unevaluatedLexemeList);
+    private static void onFailedToEvaluate(List<Lexeme> partiallyEvaluatedLexemeList) throws SyntaxException {
+        List<Lexeme> lexemes = partiallyEvaluatedLexemeList;
+
+        int functionLexemeIndex = getIndexOfAnyFunction(lexemes);
         if (functionLexemeIndex >= 0) {
-            NumValue leftArg = getLeftArg(functionLexemeIndex, unevaluatedLexemeList);
-            NumValue rightArg = getRightArg(functionLexemeIndex, unevaluatedLexemeList);
+            NumValue leftArg = getLeftArg(functionLexemeIndex, lexemes);
+            NumValue rightArg = getRightArg(functionLexemeIndex, lexemes);
 
             SyntaxDesc syntaxDesc = new SyntaxDesc(
                     leftArg,
-                    unevaluatedLexemeList.get(functionLexemeIndex).textValue,
+                    lexemes.get(functionLexemeIndex).textValue,
                     rightArg
             );
 
             throw new UnrecognisedFunctionException(syntaxDesc);
         }
         else {
-            throw new RuntimeException("ParenthesislessSolver: Failed to evaluate lexeme list:\n%s".formatted(unevaluatedLexemeList));
+            throw new RuntimeException("ParenthesislessSolver: Failed to evaluate lexeme list.\nFinal list: %s".formatted(lexemes));
         }
     }
 
