@@ -28,4 +28,9 @@ public class ParenthesislessTest {
         assertEvaluateExpression(2, "4^2 / 8");
         assertEvaluateExpression(0.5, "8 / 4^2");
     }
+
+    @Test
+    public void successive_additions_work() throws UserException {
+        assertEvaluateExpression(1+2+3+4, "1+2+3+4");
+    }
 }

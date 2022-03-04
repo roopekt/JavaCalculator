@@ -65,6 +65,7 @@ public class ParenthesislessSolver {
             if (isSameFunctionSyntax(leftArg, lexemeList.get(i), rightArg, function.syntaxDesc)) {
                 NumValue evaluationResult = function.evaluate(leftArg, rightArg);
                 PlaceEvaluationResultIntoLexemeList(evaluationResult, function.syntaxDesc, i, lexemeList);
+                i = -1;//not 0, because i will be incremented right after
             }
         }
     }
