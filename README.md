@@ -1,6 +1,6 @@
 # Java Calculator 
 
-Right now this just prints hello world, but in the future this will be a calculator. This is my first attempt at test driven development.
+This is a terminal based calculator app in progress. This is my first attempt at test driven development.
 
 ## Installation 
 
