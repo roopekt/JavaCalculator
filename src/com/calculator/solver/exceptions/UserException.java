@@ -2,6 +2,8 @@ package com.calculator.solver.exceptions;
 
 import com.calculator.solver.Lexeme;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Base class for all exceptions caused by the user related to evaluating an expression.
@@ -14,5 +16,7 @@ public abstract class UserException extends Exception {
 
     public abstract String getMessageForUser();
 
-    public Lexeme problematicLexeme;
+    @Getter
+    @Setter
+    private Lexeme problematicLexeme;
 }
