@@ -11,6 +11,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class Lexeme {
 
+    public int firstCharacterIndex;
+    public int lastCharacterIndex;
+
     public enum LexemeType {
         NUMBERLITERAL,
         FUNCTION,
