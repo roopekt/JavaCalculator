@@ -16,7 +16,11 @@ public abstract class UserException extends Exception {
 
     public abstract String getMessageForUser();
 
-    @Getter
-    @Setter
-    private Lexeme problematicLexeme;
+    public int firstProblematicCharacterIndex;
+    public int lastProblematicCharacterIndex;
+
+    public void setProblematicLexeme(Lexeme lexeme) {
+        firstProblematicCharacterIndex = lexeme.firstCharacterIndex;
+        lastProblematicCharacterIndex = lexeme.lastCharacterIndex;
+    }
 }
