@@ -29,6 +29,13 @@ public class Lexeme {
         this.type = type;
     }
 
+    public Lexeme(String textValue, LexemeType type, int firstCharacterIndex, int lastCharacterIndex) {
+        this.textValue = textValue;
+        this.type = type;
+        this.firstCharacterIndex = firstCharacterIndex;
+        this.lastCharacterIndex = lastCharacterIndex;
+    }
+
     public Lexeme(String textValue) {
         this.textValue = textValue;
     }

@@ -33,7 +33,7 @@ public class SingleNumberTest {
     @Test
     public void single_dot_cannot_be_evaluated() {
         assertThrowsErrorWithCorrectData(
-                new IncorrectNumberLiteralException("."),
+                new IncorrectNumberLiteralException(".", 0, 0),
                 () -> Solver.evaluateExpression(".")
         );
     }
@@ -41,12 +41,12 @@ public class SingleNumberTest {
     @Test
     public void number_literal_with_multiple_dots_cannot_be_evaluated() {
         assertThrowsErrorWithCorrectData(
-                new IncorrectNumberLiteralException("1..2"),
+                new IncorrectNumberLiteralException("1..2", 0, 3),
                 () -> Solver.evaluateExpression("1..2")
         );
 
         assertThrowsErrorWithCorrectData(
-                new IncorrectNumberLiteralException("1.2.3"),
+                new IncorrectNumberLiteralException("1.2.3", 0, 4),
                 () -> Solver.evaluateExpression("1.2.3")
         );
     }
@@ -54,7 +54,7 @@ public class SingleNumberTest {
     @Test
     public void number_literal_with_a_comma_cannot_be_evaluated() {
         assertThrowsErrorWithCorrectData(
-                new UnrecognisedFunctionException(new SyntaxDesc(true, ",", true)),
+                new UnrecognisedFunctionException(new SyntaxDesc(true, ",", true), 1, 1),
                 () -> Solver.evaluateExpression("1,2")
         );
     }

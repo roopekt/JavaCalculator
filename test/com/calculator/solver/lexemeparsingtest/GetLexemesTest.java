@@ -16,49 +16,38 @@ public class GetLexemesTest {
     public void lexemes_are_extracted_correctly(){
         String expression = "2+2";
         List<Lexeme> expectedLexemes = Arrays.asList(
-                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL),
-                new Lexeme("+", Lexeme.LexemeType.FUNCTION),
-                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL)
+                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL, 0, 0),
+                new Lexeme("+", Lexeme.LexemeType.FUNCTION, 1, 1),
+                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL, 2, 2)
         );
         assertGetLexemes(expectedLexemes, expression);
 
-        expression = " 2.2 * 98 ";
+        expression = "-1++(()(";
         expectedLexemes = Arrays.asList(
-                new Lexeme("2.2", Lexeme.LexemeType.NUMBERLITERAL),
-                new Lexeme("*", Lexeme.LexemeType.FUNCTION),
-                new Lexeme("98", Lexeme.LexemeType.NUMBERLITERAL)
-        );
-        assertGetLexemes(expectedLexemes, expression);
-
-        expression = "-1 ++ (2 * (3))";
-        expectedLexemes = Arrays.asList(
-                new Lexeme("-", Lexeme.LexemeType.FUNCTION),
-                new Lexeme("1", Lexeme.LexemeType.NUMBERLITERAL),
-                new Lexeme("++", Lexeme.LexemeType.FUNCTION),
-                new Lexeme("(", Lexeme.LexemeType.PARENTHESIS),
-                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL),
-                new Lexeme("*", Lexeme.LexemeType.FUNCTION),
-                new Lexeme("(", Lexeme.LexemeType.PARENTHESIS),
-                new Lexeme("3", Lexeme.LexemeType.NUMBERLITERAL),
-                new Lexeme(")", Lexeme.LexemeType.PARENTHESIS),
-                new Lexeme(")", Lexeme.LexemeType.PARENTHESIS)
+                new Lexeme("-", Lexeme.LexemeType.FUNCTION, 0, 0),
+                new Lexeme("1", Lexeme.LexemeType.NUMBERLITERAL, 1, 1),
+                new Lexeme("++", Lexeme.LexemeType.FUNCTION, 2, 3),
+                new Lexeme("(", Lexeme.LexemeType.PARENTHESIS, 4, 4),
+                new Lexeme("(", Lexeme.LexemeType.PARENTHESIS, 5, 5),
+                new Lexeme(")", Lexeme.LexemeType.PARENTHESIS, 6, 6),
+                new Lexeme("(", Lexeme.LexemeType.PARENTHESIS, 7, 7)
         );
         assertGetLexemes(expectedLexemes, expression);
 
         expression = "23 000 * -.123";
         expectedLexemes = Arrays.asList(
-                new Lexeme("23000", Lexeme.LexemeType.NUMBERLITERAL),
-                new Lexeme("*", Lexeme.LexemeType.FUNCTION),
-                new Lexeme("-", Lexeme.LexemeType.FUNCTION),
-                new Lexeme(".123", Lexeme.LexemeType.NUMBERLITERAL)
+                new Lexeme("23000", Lexeme.LexemeType.NUMBERLITERAL, 0, 5),
+                new Lexeme("*", Lexeme.LexemeType.FUNCTION, 7, 7),
+                new Lexeme("-", Lexeme.LexemeType.FUNCTION, 9, 9),
+                new Lexeme(".123", Lexeme.LexemeType.NUMBERLITERAL, 10, 13)
         );
         assertGetLexemes(expectedLexemes, expression);
 
-        expression = "   2   +   2   ";
+        expression = "  2  +  2  ";
         expectedLexemes = Arrays.asList(
-                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL),
-                new Lexeme("+", Lexeme.LexemeType.FUNCTION),
-                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL)
+                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL, 2, 2),
+                new Lexeme("+", Lexeme.LexemeType.FUNCTION, 5, 5),
+                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL, 8, 8)
         );
         assertGetLexemes(expectedLexemes, expression);
     }

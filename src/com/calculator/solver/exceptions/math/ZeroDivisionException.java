@@ -11,7 +11,7 @@ import lombok.ToString;
  * Exponentiation may also throw this exception.
  * @see FailedExponentiationException
  */
-@ToString
+@ToString(callSuper = true)
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ZeroDivisionException extends MathException {

@@ -18,9 +18,9 @@ public class TestUtilityTest {
     public void assertGetLexemes_no_unnecessary_fail_on_2_plus_2() {
         String expression = "2+2";
         List<Lexeme> expectedLexemes = Arrays.asList(
-                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL),
-                new Lexeme("+", Lexeme.LexemeType.FUNCTION),
-                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL)
+                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL, 0, 0),
+                new Lexeme("+", Lexeme.LexemeType.FUNCTION, 1, 1),
+                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL, 2, 2)
         );
         assertGetLexemes(expectedLexemes, expression);
     }
@@ -59,7 +59,7 @@ public class TestUtilityTest {
     @Test
     public void assertThrowsErrorWithCorrectData_passes_on_correct_error() {
         assertThrowsErrorWithCorrectData(
-                new IncorrectNumberLiteralException("."),
+                new IncorrectNumberLiteralException(".", 0, 0),
                 () -> Solver.evaluateExpression(".")
         );
     }
@@ -67,7 +67,7 @@ public class TestUtilityTest {
     @Test(expected = AssertionError.class)
     public void assertThrowsErrorWithCorrectData_fails_on_no_error() {
         assertThrowsErrorWithCorrectData(
-                new IncorrectNumberLiteralException("."),
+                new IncorrectNumberLiteralException(".", 0, 0),
                 () -> Solver.evaluateExpression("1")
         );
     }
@@ -83,7 +83,7 @@ public class TestUtilityTest {
     @Test(expected = AssertionError.class)
     public void assertThrowsErrorWithCorrectData_fails_on_error_with_wrong_data() {
         assertThrowsErrorWithCorrectData(
-                new IncorrectNumberLiteralException("wrong data"),
+                new IncorrectNumberLiteralException("wrong data", -1, -1),
                 () -> Solver.evaluateExpression(".")
         );
     }

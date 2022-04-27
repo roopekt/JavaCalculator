@@ -13,7 +13,7 @@ import static java.lang.Character.isDigit;
 public class LexemeParsing {
 
     public static List<Lexeme> getLexemes(String expression) {
-        List<Lexeme> lexemes = new ArrayList<Lexeme>();
+        List<Lexeme> lexemes = new ArrayList<>();
 
         Lexeme newLexeme = null;
         Lexeme.LexemeType previousNonSpaceCharType = null;
@@ -34,7 +34,7 @@ public class LexemeParsing {
                 newLexeme = new Lexeme("", newCharType);
             }
 
-            newLexeme.textValue += newCharacter;
+            addCharacterToLexeme(newLexeme, newCharacter, i);
 
             previousNonSpaceCharType = newCharType;
         }
@@ -71,5 +71,14 @@ public class LexemeParsing {
             return true;
 
         return false;
+    }
+
+    private static void addCharacterToLexeme(Lexeme lexeme, char newCharacter, int characterIndex) {
+        if (lexeme.textValue.equals(""))
+            lexeme.firstCharacterIndex = characterIndex;
+
+        lexeme.lastCharacterIndex = characterIndex;
+
+        lexeme.textValue += newCharacter;
     }
 }

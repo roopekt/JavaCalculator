@@ -1,5 +1,6 @@
 package com.calculator.solver.exceptions.syntax;
 
+import com.calculator.solver.Lexeme;
 import com.calculator.solver.exceptions.SyntaxException;
 import com.calculator.solver.mathfunctions.MathFunction;
 import com.calculator.solver.mathfunctions.MathFunctions;
@@ -8,10 +9,19 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-@ToString
-@AllArgsConstructor
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class UnrecognisedFunctionException extends SyntaxException {
+
+    public UnrecognisedFunctionException(SyntaxDesc funcSyntaxDesc, int firstProblematicCharacterIndex, int lastProblematicCharacterIndex) {
+        this.funcSyntaxDesc = funcSyntaxDesc;
+        this.firstProblematicCharacterIndex = firstProblematicCharacterIndex;
+        this.lastProblematicCharacterIndex = lastProblematicCharacterIndex;
+    }
+
+    public UnrecognisedFunctionException(SyntaxDesc funcSyntaxDesc, Lexeme functionLexeme) {
+        this(funcSyntaxDesc, functionLexeme.firstCharacterIndex, functionLexeme.lastCharacterIndex);
+    }
 
     public final SyntaxDesc funcSyntaxDesc;
 

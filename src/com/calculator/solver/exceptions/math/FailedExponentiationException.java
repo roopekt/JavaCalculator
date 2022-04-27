@@ -12,7 +12,7 @@ import lombok.ToString;
  * A ZeroDivisionException may be thrown instead if the exponent is negative and base zero.
  * @see ZeroDivisionException
 */
-@ToString
+@ToString(callSuper = true)
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class FailedExponentiationException extends MathException {

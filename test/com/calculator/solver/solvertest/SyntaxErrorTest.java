@@ -19,38 +19,43 @@ public class SyntaxErrorTest {
     @Test
     public void adjacent_functions_throw_correct_error() {
         assertThrowsErrorWithCorrectData(
-                new AdjacentFunctionsException(),
+                new AdjacentFunctionsException(0, 2),
                 () -> Solver.evaluateExpression("* *")
         );
 
         assertThrowsErrorWithCorrectData(
-                new AdjacentFunctionsException(),
+                new AdjacentFunctionsException(1, 3),
                 () -> Solver.evaluateExpression("1+ -2")
         );
     }
 
     @Test
     public void adjacent_numericals_throw_correct_error() {
-        List<Lexeme> expression = Arrays.asList(
-                new Lexeme("1", Lexeme.LexemeType.NUMBERLITERAL),
-                new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL)
-        );
+        Lexeme lexemeA = new Lexeme("1", Lexeme.LexemeType.NUMBERLITERAL);
+        Lexeme lexemeB = new Lexeme("2", Lexeme.LexemeType.NUMBERLITERAL);
+
+        List<Lexeme> expression = Arrays.asList(lexemeA, lexemeB);
+
         assertThrowsErrorWithCorrectData(
-                new AdjacentNumericalsException(),
+                new AdjacentNumericalsException(lexemeA, lexemeB),
                 () -> ParenthesislessSolver.evaluateParethesislessExpression(expression)
         );
     }
 
-    @Test(expected = EmptyExpressionException.class)
-    public void empty_expression_throws_an_error() throws MathException, SyntaxException {
+    @Test
+    public void empty_expression_throws_correct_error() {
         List<Lexeme> emptyExpression = List.of();
-        ParenthesislessSolver.evaluateParethesislessExpression(emptyExpression);
+
+        assertThrowsErrorWithCorrectData(
+                new EmptyExpressionException(),
+                () -> ParenthesislessSolver.evaluateParethesislessExpression(emptyExpression)
+        );
     }
 
     @Test
     public void wrong_function_symbol_throws_correct_error() {
         assertThrowsErrorWithCorrectData(
-                new UnrecognisedFunctionException(new SyntaxDesc(false, "wrong", false)),
+                new UnrecognisedFunctionException(new SyntaxDesc(false, "wrong", false), 0, 4),
                 () -> Solver.evaluateExpression("wrong")
         );
     }
@@ -58,12 +63,12 @@ public class SyntaxErrorTest {
     @Test
     public void wrong_function_argument_signature_throws_correct_error() {
         assertThrowsErrorWithCorrectData(
-                new UnrecognisedFunctionException(new SyntaxDesc(true, "+", false)),
+                new UnrecognisedFunctionException(new SyntaxDesc(true, "+", false), 1, 1),
                 () -> Solver.evaluateExpression("1+")
         );
 
         assertThrowsErrorWithCorrectData(
-                new UnrecognisedFunctionException(new SyntaxDesc(false, "*", true)),
+                new UnrecognisedFunctionException(new SyntaxDesc(false, "*", true), 0, 0),
                 () -> Solver.evaluateExpression("*123")
         );
     }

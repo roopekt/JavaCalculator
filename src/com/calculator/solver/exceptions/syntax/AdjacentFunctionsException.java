@@ -6,9 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-@ToString
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class AdjacentFunctionsException extends SyntaxException {
+
+    public AdjacentFunctionsException(int firstProblematicCharacterIndex, int lastProblematicCharacterIndex) {
+        this.firstProblematicCharacterIndex = firstProblematicCharacterIndex;
+        this.lastProblematicCharacterIndex = lastProblematicCharacterIndex;
+    }
+
+    public AdjacentFunctionsException(Lexeme leftFunc, Lexeme rightFunc) {
+        this(leftFunc.firstCharacterIndex, rightFunc.lastCharacterIndex);
+    }
 
     @Override
     public String getMessageForUser() { return "Two functions/operators cannot appear successively."; }
